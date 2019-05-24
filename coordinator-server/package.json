@@ -10,8 +10,7 @@
     "start": "node test.js",
     "lint": "eslint \"**/*.js\""
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "webdriverio": "^5.9.1",
     "webdriver": "^5.9.1",
     "@wdio/local-runner": "^5.9.1",
