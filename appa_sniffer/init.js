@@ -22,6 +22,8 @@ var EventHandlers = {
     },
 
     keypress: function (event) {
+        var xPath = $(event.path[0]).getPath();
+
         var checkWebkitandIE = (e.which == 26 ? 1 : 0);
         var checkMoz = (e.which == 122 && e.ctrlKey ? 1 : 0);
 
@@ -29,7 +31,7 @@ var EventHandlers = {
             $("body").append("<p>ctrl+z detected!</p>");
         } 
 
-         var obj = new FormalEvent("keypress", e.which, event.x, event.y);
+         var obj = new FormalEvent("keypress", {path: xPath, char: e.which}, event.x, event.y);
 
          document.socket.emit('clientEvent', obj);
     }
@@ -41,7 +43,7 @@ $(document).ready(function () {
     document.sniffer = new ActionSniffer();
     document.sniffer.attach();
 
-    document.socket = io("http://192.168.56.1:3000");
+    document.socket = io("http://localhost:3000");
 });
 
 class ActionSniffer {

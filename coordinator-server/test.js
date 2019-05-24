@@ -18,7 +18,7 @@ let eventDispatcher = null;
     eventDispatcher = new EventDispatcher(browser);
 
 
-    await browser.url('http://192.168.56.1:3000/index');
+    await browser.url('http://localhost:3000/index');
 
     const title = await browser.getTitle();
     console.log('Title was: ' + title);
@@ -44,5 +44,5 @@ io.on('connection', function(socket){
 });
 
 // Start the server on port 3000
-http.listen(3000, '192.168.56.1');  
+http.listen(3000, 'localhost');  
 console.log('Node server running on port 3000');  
