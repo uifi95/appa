@@ -5,5 +5,5 @@ document.addEventListener('click', function (event) {
     //     currentTarget: event.currentTarget
     // };
     const descriptor = { selector: OptimalSelect.select(event.target) };
-    socket.emit('clientClick', descriptor);
+    socket.emit('clientEvent', descriptor);
 }, false);

@@ -6,7 +6,7 @@ let eventDispatcher = null;
     browser = await multiremote({
         myChromeBrowser: {
             capabilities: {
-                browserName: 'edge'
+                browserName: 'MicrosoftEdge'
             }
         },
         myFirefoxBrowser: {
@@ -18,7 +18,7 @@ let eventDispatcher = null;
     eventDispatcher = new EventDispatcher(browser);
 
 
-    await browser.url('http://localhost:3000/index');
+    await browser.url('http://192.168.56.1:3000/index');
 
     const title = await browser.getTitle();
     console.log('Title was: ' + title);
@@ -37,11 +37,12 @@ app.get('/client.js', function(req, res){
 });
 
 io.on('connection', function(socket){
-    socket.on('clientClick', function (evt) {
+    console.log('');
+    socket.on('clientEvent', function (evt) {
         eventDispatcher.dispatch('click', evt);
     })
 });
 
 // Start the server on port 3000
-http.listen(3000, '127.0.0.1');  
+http.listen(3000, '192.168.56.1');  
 console.log('Node server running on port 3000');  
