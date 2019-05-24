@@ -1,21 +1,24 @@
 const { multiremote } = require('webdriverio');
-
+const EventDispatcher = require('./event-framework/event-dispatcher');
 let browser = null;
+let eventDispatcher = null;
 (async () => {
     browser = await multiremote({
-        myChromeBrowser: {
-            capabilities: {
-                browserName: 'chrome'
-            }
-        },
+        // myChromeBrowser: {
+        //     capabilities: {
+        //         browserName: 'chrome'
+        //     }
+        // },
         myFirefoxBrowser: {
             capabilities: {
                 browserName: 'firefox'
             }
         }
     });
+    eventDispatcher = new EventDispatcher(browser);
 
-    await browser.url('http://www.google.com');
+
+    await browser.url('https://www.amazon.com/');
 
     const title = await browser.getTitle();
     console.log('Title was: ' + title);
@@ -26,11 +29,12 @@ const http = require('http');
 
 
 // Create an instance of the http server to handle HTTP requests
-let app = http.createServer((req, res) => {  
+let app = http.createServer(async (req, res) => {  
     // Set a response type of plain text for the response
     res.writeHead(200, {'Content-Type': 'text/plain'});
-
-    browser.url('http://www.amazon.com');
+    await eventDispatcher.dispatch('click', {
+        selector: "#nav-cart"
+    });
 
     // Send back a response and end the connection
     res.end('Hello World!\n');
