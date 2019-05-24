@@ -72,7 +72,10 @@
     "tumblr.js": "^2.0.0",
     "twilio": "^3.30.3",
     "twit": "^2.2.11",
-    "validator": "^10.11.0"
+    "validator": "^10.11.0",
+    "webdriver": "^5.9.1",
+    "webdriverio": "^5.9.1",
+    "@wdio/cli": "5.9.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

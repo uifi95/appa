@@ -10,7 +10,6 @@ const chalk = require('chalk');
 const errorHandler = require('errorhandler');
 const lusca = require('lusca');
 const dotenv = require('dotenv');
-const MongoStore = require('connect-mongo')(session);
 const flash = require('express-flash');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -46,19 +45,6 @@ const passportConfig = require('./config/passport');
 const app = express();
 
 /**
- * Connect to MongoDB.
- */
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useNewUrlParser', true);
-mongoose.connect(process.env.MONGODB_URI);
-mongoose.connection.on('error', (err) => {
-  console.error(err);
-  console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
-  process.exit();
-});
-
-/**
  * Express configuration.
  */
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
@@ -80,10 +66,6 @@ app.use(session({
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
   cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
-  store: new MongoStore({
-    url: process.env.MONGODB_URI,
-    autoReconnect: true,
-  })
 }));
 app.use(passport.initialize());
 app.use(passport.session());

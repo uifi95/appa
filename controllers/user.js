@@ -11,10 +11,19 @@ const randomBytesAsync = promisify(crypto.randomBytes);
  * GET /login
  * Login page.
  */
-exports.getLogin = (req, res) => {
+exports.getLogin = async (req, res) => {
   if (req.user) {
     return res.redirect('/');
   }
+  const { remote } = require('webdriverio');
+  const browser = await remote({
+    logLevel: 'error',
+    path: '/',
+    capabilities: {
+        browserName: 'chrome'
+    }
+  });
+  await browser.url('https://webdriver.io');
   res.render('account/login', {
     title: 'Login'
   });
