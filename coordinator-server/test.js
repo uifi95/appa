@@ -24,22 +24,34 @@ let eventDispatcher = null;
     console.log('Title was: ' + title);
 })().catch((e) => console.error(e));
 
-const http = require('http');
+var app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
+app.get('/index', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+});
 
+app.get('/client.js', function(req, res){
+    res.sendFile(__dirname + '/client.js');
+});
 
-// Create an instance of the http server to handle HTTP requests
-let app = http.createServer(async (req, res) => {  
-    // Set a response type of plain text for the response
+app.get('/', async function(req, res){
     res.writeHead(200, {'Content-Type': 'text/plain'});
     await eventDispatcher.dispatch('click', {
         selector: "#nav-cart"
     });
 
     // Send back a response and end the connection
-    res.end('Hello World!\n');
+    res.send('Hello World!\n');
+});
+
+io.on('connection', function(socket){
+    socket.on('clientClick', function (evt) {
+        console.log('Click received: ', evt);
+    })
 });
 
 // Start the server on port 3000
-app.listen(3000, '127.0.0.1');  
+http.listen(3000, '127.0.0.1');  
 console.log('Node server running on port 3000');  

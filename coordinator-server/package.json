@@ -11,12 +11,14 @@
     "lint": "eslint \"**/*.js\""
   },
   "dependencies": {
-    "webdriverio": "^5.9.1",
-    "webdriver": "^5.9.1",
     "@wdio/local-runner": "^5.9.1",
     "@wdio/mocha-framework": "^5.9.1",
+    "express": "^4.17.0",
+    "socket.io": "^2.2.0",
     "wdio-chromedriver-service": "^5.0.1",
-    "wdio-selenium-standalone-service": "0.0.12"
+    "wdio-selenium-standalone-service": "0.0.12",
+    "webdriver": "^5.9.1",
+    "webdriverio": "^5.9.1"
   },
   "engines": {
     "node": ">=8.15.1",
