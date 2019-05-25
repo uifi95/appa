@@ -1,4 +1,4 @@
-# Project Title
+# Appa
 
 A project that synchronizes web browser actions using webdriver.io
 
