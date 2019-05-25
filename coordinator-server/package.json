@@ -7,10 +7,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev-server": "nodemon test.js",
+    "dev-server": "nodemon server.js",
     "selenium-start": "./node_modules/.bin/selenium-standalone start",
     "selenium-install": "./node_modules/.bin/selenium-standalone start",
-    "start": "./node_modules/.bin/run-p selenium-start dev-server",
+    "start": "./node_modules/.bin/run-p selenium-start \"dev-server -- {1}\"",
     "lint": "eslint \"**/*.js\""
   },
   "dependencies": {

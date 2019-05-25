@@ -8,8 +8,8 @@ class EventDispatcher {
         };
     }
 
-    async dispatch(type, eventDescriptor) {
-        return await new this.eventMap[type](eventDescriptor).trigger(this.browser);
+    async dispatch(event) {
+        return await new this.eventMap[event.name](event).trigger(this.browser);
     }
 }
 

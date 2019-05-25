@@ -6,7 +6,7 @@ class Click extends Event {
     }
 
     async trigger(browser) {
-        const element = await browser.$(this.eventDescriptor.selector);
+        const element = await browser.$(this.eventDescriptor.identifier);
         element.click();
     }
 }
