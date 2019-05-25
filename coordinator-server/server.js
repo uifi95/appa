@@ -35,6 +35,7 @@ io.on('connection', function(socket) {
             console.log("Event Dispatcher not initialized yet, go back");
             return;
         }
+        console.log(event);
         eventDispatcher.dispatch(event)
     });
 });  

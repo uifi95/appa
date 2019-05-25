@@ -3,7 +3,11 @@ class Event {
         this.eventDescriptor = eventDescriptor;
     }
 
-    async trigger() {
+    async getElement(browser) {
+        return browser.$(this.eventDescriptor.identifier)
+    }
+
+    async trigger(browser) {
         throw new Error('Not implemented');
     }
 }

@@ -2,11 +2,9 @@ var AllowedEvents = ['click', 'doubleclick', 'keypress', 'contextmenu'];
 var EventHandlers = {
     click: function (event) {
         var path = OptimalSelect.select(event.target);
-        var obj = new FormalEvent("click", path, event.x, event.y);
+        var obj = new ClickEvent(path, event.x, event.y);
         
         document.socket.emit('clientEvent', obj);
-
-        console.log('handler click');
     },
 
     doubleclick: function (event) {
@@ -22,15 +20,7 @@ var EventHandlers = {
     },
 
     keypress: function (event) {
-        var checkWebkitandIE = (e.which == 26 ? 1 : 0);
-        var checkMoz = (e.which == 122 && e.ctrlKey ? 1 : 0);
-
-        if (checkWebkitandIE || checkMoz) {
-            $("body").append("<p>ctrl+z detected!</p>");
-        } 
-
-         var obj = new FormalEvent("keypress", e.which, event.x, event.y);
-
+         var obj = new KeyPressEvent(event.key, event.charCode);
          document.socket.emit('clientEvent', obj);
     }
 };
@@ -97,11 +87,25 @@ class ActionSniffer {
 }
 
 class FormalEvent {
-    constructor(name, identifier, x, y) {
+    constructor(name) {
         this.name = name;
+    }
+}
+
+class ClickEvent extends FormalEvent {
+    constructor(identifier, x, y) {
+        super("click");
         this.identifier = identifier;
         this.x = x;
         this.y = y;
+    }
+}
+
+class KeyPressEvent extends FormalEvent {
+    constructor(key, code) {
+        super("keypress");
+        this.key = key;
+        this.code = code;
     }
 }
 

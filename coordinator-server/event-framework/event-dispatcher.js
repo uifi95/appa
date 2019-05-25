@@ -1,10 +1,12 @@
 const Click = require("./click");
+const KeyPress = require("./keypress");
 
 class EventDispatcher {
     constructor(browser) {
         this.browser = browser;
         this.eventMap = {
-            click: Click 
+            click: Click,
+            keypress: KeyPress
         };
     }
 
