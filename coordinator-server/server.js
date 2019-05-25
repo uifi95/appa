@@ -1,10 +1,14 @@
 const initEventFramework = require('./lib/init-event-framework');
 // TODO this must come from config/CLI argument
-let appUrl = 'https://clarity.design';
-
+const config = require("./appa.config.json");
+const eventFrameworkConfig = {
+    appUrl: config.url,
+    master: config.masterBrowser,
+    slaves: config.slaveBrowsers
+};
 
 let eventDispatcher = null;
-initEventFramework(appUrl)
+initEventFramework(eventFrameworkConfig)
 .then((dispatcher) => eventDispatcher = dispatcher)
 .catch((e) => console.error(e));
 

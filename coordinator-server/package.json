@@ -10,8 +10,7 @@
     "dev-server": "nodemon server.js",
     "selenium-start": "./node_modules/.bin/selenium-standalone start",
     "selenium-install": "./node_modules/.bin/selenium-standalone start",
-    "start": "./node_modules/.bin/run-p selenium-start \"dev-server -- {1}\"",
-    "lint": "eslint \"**/*.js\""
+    "start": "./node_modules/.bin/run-p selenium-start dev-server"
   },
   "dependencies": {
     "@wdio/local-runner": "^5.9.1",

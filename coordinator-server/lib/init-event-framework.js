@@ -2,30 +2,32 @@ const { multiremote, remote } = require('webdriverio');
 const EventDispatcher = require('../event-framework/event-dispatcher');
 const injectScripts = require('./inject-scripts');
 
-const initEventFramework = async (appUrl) => {
-    const slaves = await multiremote({
-        myEdgeBrowser: {
-            capabilities: {
-                browserName: 'MicrosoftEdge'
-            }
-        },
-        myFirefoxBrowser: {
-            capabilities: {
-                browserName: 'firefox'
-            }
+const generateConfigs = (master, slaves) => {
+    const slaveConfig = {};
+    slaves.forEach((slaveType) => {
+        slaveConfig[`slave${slaveType}`] = { capabilities: {
+                browserName: slaveType
+            } 
         }
     });
-    const eventDispatcher = new EventDispatcher(slaves);
-    await slaves.url(appUrl);
-    const master = await remote({
+    const masterConfig = {
         capabilities: {
-            browserName: 'chrome'
+            browserName: master
         }
-    });
+    };
+    return { slaveConfig, masterConfig };
+};
+
+const initEventFramework = async ({ appUrl, master, slaves }) => {
+    const { slaveConfig, masterConfig } = generateConfigs(master, slaves);
+    const slaveBrowsers = await multiremote(slaveConfig);
+    const eventDispatcher = new EventDispatcher(slaveBrowsers);
+    await slaveBrowsers.url(appUrl);
+    const masterBrowser = await remote(masterConfig);
 
     // start master and inject necessary scripts into it
-    await master.url(appUrl);
-    master.execute(injectScripts);
+    await masterBrowser.url(appUrl);
+    masterBrowser.execute(injectScripts);
     return eventDispatcher;
 };
 

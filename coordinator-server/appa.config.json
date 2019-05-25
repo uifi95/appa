@@ -1,0 +1,5 @@
+{
+    "url": "https://clarity.design",
+    "masterBrowser": "chrome",
+    "slaveBrowsers": ["firefox", "MicrosoftEdge"] 
+}
