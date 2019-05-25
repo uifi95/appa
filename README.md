@@ -10,9 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 You will need node and npm.
 
-```
 [NodeJS](https://nodejs.org/) with the package there you can install both.
-```
 
 Also you will need to have 4 browsers installed.
 
@@ -43,11 +41,7 @@ And finally
 npm start
 ```
 
-This will open 3 browsers, Go into the chrome one, and
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+This will open 3 browsers, Go into the chrome one, and start clicking around.
 
 ## Built With
 
