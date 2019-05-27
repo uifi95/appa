@@ -1,14 +1,13 @@
 const Event = require("./event");
 
-class Click extends Event {
+class KeyPress extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
 
     async trigger(browser) {
-        const element = await super.getElement(browser);
-        element.click();
+        browser.keys([this.eventDescriptor.key]);
     }
 }
 
-module.exports = Click;
+module.exports = KeyPress;

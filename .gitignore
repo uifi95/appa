@@ -1,22 +1,8 @@
-Skip to content
- 
-Search or jump to…
 
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@uifi95 
-2,777
-84,213 41,058 github/gitignore
- Code  Pull requests 80  Projects 0  Security  Insights
-gitignore/Node.gitignore
-@byeonggukgong byeonggukgong Update Node.gitignore (#2934)
-e58b3e0 12 days ago
-@stuartpb @shiftkey @TennyZhuang @venatoria @ro31337 @melonmanchan @gouthamve @jucrouzet @cheddar @arcresu @kesoji @tejashah88 @sroberts @SimonSiefke @segayuu @Richienb @rgbkrk @rsolomo @peat @noinkling @ndelvalle @MikeRalphson @lmedson @shtr0m @kerimdzhanov @joreyaesh
-89 lines (63 sloc)  1.28 KB
-    
+# Created by https://www.gitignore.io/api/node,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=node,visualstudiocode
+
+### Node ###
 # Logs
 logs
 *.log
@@ -39,7 +25,6 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
-*.lcov
 
 # nyc test coverage
 .nyc_output
@@ -62,9 +47,6 @@ jspm_packages/
 
 # TypeScript v1 declaration files
 typings/
-
-# TypeScript cache
-*.tsbuildinfo
 
 # Optional npm cache directory
 .npm
@@ -105,16 +87,12 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-.vs/
+
+### VisualStudioCode ###
+.vscode/*
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/node,visualstudiocode
