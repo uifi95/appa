@@ -6,9 +6,13 @@ class Scroll extends Event {
     }
 
     async trigger(browser) {
-        browser.execute((ident, position) => {
-            document.querySelector(ident).scrollTop = position;
-        }, this.eventDescriptor.identifier, this.eventDescriptor.position);
+        browser.execute(
+            (ident, position) => {
+                document.querySelector(ident).scrollTop = position;
+            }, 
+            this.eventDescriptor.identifier, 
+            this.eventDescriptor.position
+        );
     }
 }
 
