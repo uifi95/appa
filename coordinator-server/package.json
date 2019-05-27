@@ -8,9 +8,11 @@
   "license": "MIT",
   "scripts": {
     "dev-server": "nodemon server.js",
+    "dev-debug": "nodemon --inspect server.js",
     "selenium-start": "./node_modules/.bin/selenium-standalone start",
     "selenium-install": "./node_modules/.bin/selenium-standalone start",
-    "start": "./node_modules/.bin/run-p selenium-start dev-server"
+    "start": "./node_modules/.bin/run-p selenium-start dev-server",
+    "debug": "./node_modules/.bin/run-p selenium-start dev-debug"
   },
   "dependencies": {
     "@wdio/local-runner": "^5.9.1",
