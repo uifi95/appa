@@ -1,9 +1,9 @@
-var AllowedEvents = ['click', 'doubleclick', 'keypress', 'contextmenu'];
-var EventHandlers = {
+const AllowedEvents = ['click', 'doubleclick', 'keypress', 'contextmenu', 'scroll'];
+const EventHandlers = {
     click: function (event) {
-        var path = OptimalSelect.select(event.target);
-        var obj = new ClickEvent(path, event.x, event.y);
-        
+        const path = OptimalSelect.select(event.target);
+        const obj = new ClickEvent(path, event.x, event.y);
+
         document.socket.emit('clientEvent', obj);
     },
 
@@ -12,7 +12,10 @@ var EventHandlers = {
     },
 
     scroll: function (event) {
-        console.log('handler scroll');
+        const path = OptimalSelect.select(event.target);
+        const obj = new ScrollEvent(path, event.srcElement.scrollTop);
+
+        document.socket.emit('clientEvent', obj);
     },
 
     contextmenu: function (event) {
@@ -20,24 +23,15 @@ var EventHandlers = {
     },
 
     keypress: function (event) {
-         var obj = new KeyPressEvent(event.key, event.charCode);
-         document.socket.emit('clientEvent', obj);
+        var obj = new KeyPressEvent(event.key, event.charCode);
+        
+        document.socket.emit('clientEvent', obj);
     }
 };
-
-$(document).ready(function () {
-    console.log("ready!");
-
-    document.sniffer = new ActionSniffer();
-    document.sniffer.attach();
-
-    document.socket = io("http://localhost:3000");
-});
 
 class ActionSniffer {
     constructor(window) {
         this.events = [];
-
     }
 
     attach() {
@@ -76,37 +70,14 @@ class ActionSniffer {
         var key = parseInt(eventKey, 0);
         if (AllowedEvents[key] != undefined) {
             return {
-                eventName: AllowedEvents[key], capture: true
+                eventName: AllowedEvents[key],
+                capture: true
             };
         } else {
             return {
-                eventName: eventKey, capture: false
+                eventName: eventKey,
+                capture: false
             };
         }
     }
 }
-
-class FormalEvent {
-    constructor(name) {
-        this.name = name;
-    }
-}
-
-class ClickEvent extends FormalEvent {
-    constructor(identifier, x, y) {
-        super("click");
-        this.identifier = identifier;
-        this.x = x;
-        this.y = y;
-    }
-}
-
-class KeyPressEvent extends FormalEvent {
-    constructor(key, code) {
-        super("keypress");
-        this.key = key;
-        this.code = code;
-    }
-}
-
-

@@ -22,7 +22,11 @@ injectScripts = async function() {
     await injectScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')
     await injectScript('https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js')
     await injectScript('https://cdnjs.cloudflare.com/ajax/libs/optimal-select/4.0.1/optimal-select.js')
+    
+    await injectScript('http://localhost:3000/events.js');
+    await injectScript('http://localhost:3000/action.sniffer.js');
     await injectScript('http://localhost:3000/client.js');
+    
     alert("You can start testing now");
 }
 

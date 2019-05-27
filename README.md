@@ -38,7 +38,12 @@ npm run selenium-install
 And finally
 
 ```
-npm start
+npm start   
+```
+## Run with server side debugging 
+
+```
+npm run debug
 ```
 
 This will open 3 browsers, Go into the chrome one, and start clicking around.
