@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keypress', 'contextmenu', 'scroll'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -22,9 +22,16 @@ const EventHandlers = {
         console.log('handler contextmenu');
     },
 
-    keypress: function (event) {
-        var obj = new KeyPressEvent(event.key, event.charCode);
-        
+    keyup: function (event) {
+        const obj = new KeyPressEvent(event.key, event.charCode);
+        document.socket.emit('clientEvent', obj);
+    },
+
+    keydown(event) {
+        if (!["Control", "Shift", "Alt"].includes(event.key)) {
+            return;
+        }
+        const obj = new KeyPressEvent(event.key, event.charCode);
         document.socket.emit('clientEvent', obj);
     }
 };
