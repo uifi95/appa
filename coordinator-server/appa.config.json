@@ -1,5 +1,6 @@
 {
     "url": "https://clarity.design",
     "masterBrowser": "chrome",
-    "slaveBrowsers": ["firefox"] 
+    "slaveBrowsers": ["firefox"],
+    "port": 3000
 }
