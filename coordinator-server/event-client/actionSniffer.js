@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -19,7 +19,7 @@ const EventHandlers = {
     },
 
     contextmenu: function (event) {
-        console.log('handler contextmenu');
+        console.log('Not (Yet) Implemented!');
     },
 
     keyup: function (event) {
@@ -33,12 +33,19 @@ const EventHandlers = {
         }
         const obj = new KeyPressEvent(event.key, event.charCode);
         document.socket.emit('clientEvent', obj);
+    },
+
+    mouseover(event) {
+        const path = OptimalSelect.select(event.target);
+        const obj = new MouseOverEvent(path, event.x, event.y);
+
+        document.socket.emit('clientEvent', obj);
     }
 };
 
 class ActionSniffer {
     constructor(window) {
-        this.events = [];
+        this.eventListeners = [];
     }
 
     attach() {
@@ -69,8 +76,16 @@ class ActionSniffer {
         }
     }
 
+    // TODO: see how and where it can(should) be used
     detach() {
-        //TODO :)
+        for (let eventKey in AllowedEvents) {
+            var eventInfo = this.parseEventKey(eventKey);
+            var eventName = eventInfo.eventName;
+
+            window.removeEventListener(eventName, this.eventListeners[eventName], true);
+        }
+
+        this.eventListeners = [];
     }
 
     parseEventKey(eventKey) {

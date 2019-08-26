@@ -1,6 +1,7 @@
 const Click = require("./click");
 const KeyPress = require("./keypress");
 const Scroll = require("./scroll");
+const MouseOver = require("./mouseover");
 
 class EventDispatcher {
     constructor(browser) {
@@ -8,7 +9,8 @@ class EventDispatcher {
         this.eventMap = {
             click: Click,
             keypress: KeyPress,
-            scroll: Scroll
+            scroll: Scroll,
+            mouseover: MouseOver
         };
     }
 
