@@ -18,7 +18,7 @@ const generateConfigs = (master, slaves) => {
     return { slaveConfig, masterConfig };
 };
 
-const initEventFramework = async ({ appUrl, master, slaves }) => {
+const initEventFramework = async ({ appUrl, master, slaves, port }) => {
     const { slaveConfig, masterConfig } = generateConfigs(master, slaves);
     const slaveBrowsers = await multiremote(slaveConfig);
     const eventDispatcher = new EventDispatcher(slaveBrowsers);
@@ -27,7 +27,7 @@ const initEventFramework = async ({ appUrl, master, slaves }) => {
 
     // start master and inject necessary scripts into it
     await masterBrowser.url(appUrl);
-    masterBrowser.execute(injectScripts);
+    masterBrowser.execute(injectScripts, port);
     return eventDispatcher;
 };
 

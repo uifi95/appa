@@ -1,4 +1,4 @@
-injectScripts = async function() {
+injectScripts = async function(port) {
     const injectScript = (source) => {
         return new Promise((resolve) => {
             var script = document.createElement('script');
@@ -23,9 +23,9 @@ injectScripts = async function() {
     await injectScript('https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js')
     await injectScript('https://cdnjs.cloudflare.com/ajax/libs/optimal-select/4.0.1/optimal-select.js')
     
-    await injectScript('http://localhost:3000/events.js');
-    await injectScript('http://localhost:3000/action.sniffer.js');
-    await injectScript('http://localhost:3000/client.js');
+    await injectScript(`http://localhost:${port}/events.js`);
+    await injectScript(`http://localhost:${port}/action.sniffer.js`);
+    await injectScript(`http://localhost:${port}/client.js`);
     
     alert("You can start testing now");
 }

@@ -8,11 +8,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need node and npm.
+You will need
+* [Node and npm](https://nodejs.org/) - with the package there you can install both.
+* [Java 8+](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-[NodeJS](https://nodejs.org/) with the package there you can install both.
-
-Also you will need to have 4 browsers installed.
+Also you will need to have the browsers installed which you want to use.
+We currently support these four:
 
 ```
 Microsoft Edge
