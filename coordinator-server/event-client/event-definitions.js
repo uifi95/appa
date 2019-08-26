@@ -31,10 +31,10 @@ class ScrollEvent extends FormalEvent {
 
 
 class MouseOverEvent extends FormalEvent {
-    constructor(identifier, x, y) {
+    constructor(identifier, position, size) {
         super("mouseover");
         this.identifier = identifier;
-        this.x = x;
-        this.y = y;
+        this.position = position;
+        this.size = size;
     }
 }

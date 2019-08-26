@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'mousemove'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -37,7 +37,17 @@ const EventHandlers = {
 
     mouseover(event) {
         const path = OptimalSelect.select(event.target);
-        const obj = new MouseOverEvent(path, event.x, event.y);
+        const rectangle = event.target.getBoundingClientRect();
+        const size = {
+            width: rectangle.right - rectangle.left,
+            height: rectangle.bottom - rectangle.top
+        };
+        const position = { 
+            x: event.pageX - rectangle.left,
+            y: event.pageY - rectangle.top
+         };
+        const obj = new MouseOverEvent(path, position, size);
+        console.log(obj);
 
         document.socket.emit('clientEvent', obj);
     }

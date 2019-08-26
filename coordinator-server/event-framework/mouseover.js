@@ -6,24 +6,24 @@ class MouseOver extends Event {
     }
 
     async trigger(browser) {
-        const element = await super.getElement(browser);
-        // element.mouseover();
+        const driverElement = await super.getElement(browser);
+        const { size: masterSize, position, identifier } = this.eventDescriptor;
 
-        const identifier = this.eventDescriptor.identifier;
-        //element.moveTo(this.eventDescriptor.x, this.eventDescriptor.y);
-
-        browser.execute(
+        const [slaveSize] = await browser.execute(
             (identifier) => {
-                //const element = super.getElement(browser); 
                 const element = document.querySelector(identifier);
-                //element.mouseover();
-                element.dispatchEvent(new Event('mouseover'));
-
-
-
+                const rectangle = element.getBoundingClientRect();
+                return {
+                    width: rectangle.right - rectangle.left,
+                    height: rectangle.bottom - rectangle.top
+                };
             },
             identifier
         );
+
+        const x = position.x * masterSize.width / slaveSize.width;
+        const y = position.y * masterSize.height / slaveSize.height;
+        driverElement.moveTo(x, y);
     }
 }
 
