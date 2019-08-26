@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'beforeunload'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -33,6 +33,13 @@ const EventHandlers = {
         }
         const obj = new KeyPressEvent(event.key, event.charCode);
         document.socket.emit('clientEvent', obj);
+    },
+
+    beforeunload: function (event) {
+        const obj = new BeforeUnloadEvent();
+        document.socket.emit('clientEvent', obj);
+
+        return "The testing session will now end. Buh-Bye!";
     }
 };
 

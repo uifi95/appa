@@ -28,3 +28,10 @@ class ScrollEvent extends FormalEvent {
         this.position = position;
     }
 }
+
+class BeforeUnloadEvent extends FormalEvent {
+    constructor() {
+        super("beforeunload");
+        this.identifier = "buh-bye";
+    }
+}
