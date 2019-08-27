@@ -7,12 +7,14 @@
   },
   "license": "MIT",
   "scripts": {
+    "rel-server": "node server.js",
     "dev-server": "nodemon server.js",
     "dev-debug": "nodemon --inspect server.js",
     "selenium-start": "./node_modules/.bin/selenium-standalone start",
     "selenium-install": "./node_modules/.bin/selenium-standalone install",
     "start": "./node_modules/.bin/run-p selenium-start dev-server",
-    "debug": "./node_modules/.bin/run-p selenium-start dev-debug"
+    "debug": "./node_modules/.bin/run-p selenium-start dev-debug",
+    "start-no-nodemon": "./node_modules/.bin/run-p selenium-start rel-server"
   },
   "dependencies": {
     "@wdio/local-runner": "^5.9.1",

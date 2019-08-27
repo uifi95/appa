@@ -36,8 +36,13 @@ const EventHandlers = {
     },
 
     beforeunload: function (event) {
+
+        // Send the last emit to close slaves
         const obj = new BeforeUnloadEvent();
         document.socket.emit('clientEvent', obj);
+
+        // Disconnect the socket connection
+        document.socket.close();
 
         return "The testing session will now end. Buh-Bye!";
     }
