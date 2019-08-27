@@ -11,7 +11,7 @@ class EventDispatcher {
             click: Click,
             keypress: KeyPress,
             scroll: Scroll,
-            mouseover: MouseOver
+            mouseover: MouseOver,
             beforeunload: BeforeUnload
         };
     }
