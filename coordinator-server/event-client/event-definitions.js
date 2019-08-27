@@ -29,6 +29,16 @@ class ScrollEvent extends FormalEvent {
     }
 }
 
+
+class MouseOverEvent extends FormalEvent {
+    constructor(identifier, position, size) {
+        super("mouseover");
+        this.identifier = identifier;
+        this.position = position;
+        this.size = size;
+    }
+}
+
 class BeforeUnloadEvent extends FormalEvent {
     constructor() {
         super("beforeunload");

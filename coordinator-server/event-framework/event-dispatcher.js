@@ -1,6 +1,7 @@
 const Click = require("./click");
 const KeyPress = require("./keypress");
 const Scroll = require("./scroll");
+const MouseOver = require("./mouseover");
 const BeforeUnload = require("./beforeunload");
 
 class EventDispatcher {
@@ -10,6 +11,7 @@ class EventDispatcher {
             click: Click,
             keypress: KeyPress,
             scroll: Scroll,
+            mouseover: MouseOver
             beforeunload: BeforeUnload
         };
     }
