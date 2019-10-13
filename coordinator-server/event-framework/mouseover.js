@@ -10,7 +10,7 @@ class MouseOver extends Event {
         const { size: masterSize, position, identifier } = this.eventDescriptor;
 
         const [slaveSize] = await browser.execute(
-            (identifier) => {
+            function mouseOver(identifier) {
                 const element = document.querySelector(identifier);
                 const rectangle = element.getBoundingClientRect();
                 return {
