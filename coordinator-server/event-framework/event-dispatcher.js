@@ -17,7 +17,11 @@ class EventDispatcher {
     }
 
     async dispatch(event) {
-        return await new this.eventMap[event.name](event).trigger(this.browser);
+        try {
+            return await new this.eventMap[event.name](event).trigger(this.browser);
+        } catch (err) {
+            console.warn('Failed event dispatch', event, browser);
+        }
     }
 }
 

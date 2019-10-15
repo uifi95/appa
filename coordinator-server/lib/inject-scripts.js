@@ -1,10 +1,27 @@
 injectScripts = async function(port) {
-    const injectScript = (source) => {
+    const scriptIdPrefix = 'APPA_INJECTED_SCRIPT_';
+    const scripts = [
+        { src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', id: `1.${scriptIdPrefix}jQuery`},
+        { src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js', id: `2.${scriptIdPrefix}SocketIO`},
+        { src: 'https://cdnjs.cloudflare.com/ajax/libs/optimal-select/4.0.1/optimal-select.js', id: `3.${scriptIdPrefix}OptimalSelect`},
+
+        { src: `http://localhost:${port}/events.js`, id: `4.${scriptIdPrefix}events`},
+        { src: `http://localhost:${port}/action.sniffer.js`, id: `5.${scriptIdPrefix}actionSniffer`},
+        { src: `http://localhost:${port}/client.js`, id: `6.${scriptIdPrefix}client`},
+    ];
+
+    const injectScript = (source, id) => {
         return new Promise((resolve) => {
+            if (!document || document.getElementById(id)) { // script already exists, skip
+                resolve();
+                return;
+            }
+
             var script = document.createElement('script');
-            script.async = 1;
+            script.async = false; // async must be false as there are dependencies between the scripts
             script.src = source;
-        
+            script.id = id;
+            
             script.onload = script.onreadystatechange = (_, isAbort) => {
                 if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
                     script.onload = script.onreadystatechange = null;
@@ -14,20 +31,12 @@ injectScripts = async function(port) {
                     }
                 }
             };
-            
+
             document.head.appendChild(script);
         });
     };
 
-    await injectScript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')
-    await injectScript('https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js')
-    await injectScript('https://cdnjs.cloudflare.com/ajax/libs/optimal-select/4.0.1/optimal-select.js')
-    
-    await injectScript(`http://localhost:${port}/events.js`);
-    await injectScript(`http://localhost:${port}/action.sniffer.js`);
-    await injectScript(`http://localhost:${port}/client.js`);
-    
-    alert("You can start testing now");
+    scripts.forEach(async script => await injectScript(script.src, script.id));
 }
 
 module.exports = injectScripts;

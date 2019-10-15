@@ -7,8 +7,8 @@ class Scroll extends Event {
 
     async trigger(browser) {
         const { identifier, position } = this.eventDescriptor;
-        browser.execute(
-            (identifier, position) => {
+        await browser.execute(
+            function scroll(identifier, position) {
                 const element = document.querySelector(identifier);
                 element.scrollTop = position;
             }, 
