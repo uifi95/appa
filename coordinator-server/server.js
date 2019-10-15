@@ -11,7 +11,8 @@ const eventFrameworkConfig = {
     appUrl: config.url,
     master: config.masterBrowser,
     slaves: config.slaveBrowsers,
-    port: config.port
+    port: config.port || 3000,
+    logLevel: config.logLevel || 'trace'
 };
 
 let eventDispatcher = null;
