@@ -44,13 +44,13 @@ app.get('/client.js', function(req, res){
 
 // Start the server on the configured port
 http.listen(config.port, 'localhost');
-console.log(`Node server running on port ${config.port}`);
+console.log('Node server running on port ${config.port}');
 
 
 io.on('connection', function(socket) {
     socket.on('clientEvent', (event) => {
         if (!eventDispatcher) {
-            console.log("Event Dispatcher not initialized yet, go back");
+            console.log('Event Dispatcher not initialized yet, go back');
             return;
         }
         console.log(event);

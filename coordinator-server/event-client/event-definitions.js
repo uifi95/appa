@@ -38,3 +38,10 @@ class MouseOverEvent extends FormalEvent {
         this.size = size;
     }
 }
+
+class BeforeUnloadEvent extends FormalEvent {
+    constructor() {
+        super("beforeunload");
+        this.identifier = "buh-bye";
+    }
+}

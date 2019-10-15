@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'beforeunload'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -49,6 +49,18 @@ const EventHandlers = {
         const obj = new MouseOverEvent(path, position, size);
 
         document.socket.emit('clientEvent', obj);
+    },
+
+    beforeunload: function (event) {
+
+        // Send the last emit to close slaves
+        const obj = new BeforeUnloadEvent();
+        document.socket.emit('clientEvent', obj);
+
+        // Disconnect the socket connection
+        document.socket.close();
+
+        return "The testing session will now end. Buh-Bye!";
     }
 };
 
