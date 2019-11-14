@@ -54,6 +54,6 @@ io.on('connection', function(socket) {
             return;
         }
         console.log(event);
-        eventDispatcher.dispatch(event)
+        eventDispatcher.dispatch(event);
     });
 });  
