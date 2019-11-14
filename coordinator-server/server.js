@@ -6,7 +6,7 @@ const io = require('socket.io')(http);
 const path = require('path');
 
 // TODO this must come from config/CLI argument
-const config = require("./appa.config.json");
+const config = require("./config/appa.config.json");
 const eventFrameworkConfig = {
     appUrl: config.url,
     master: config.masterBrowser,
@@ -44,7 +44,7 @@ app.get('/client.js', function(req, res){
 
 // Start the server on the configured port
 http.listen(config.port, 'localhost');
-console.log('Node server running on port ${config.port}');
+console.log(`Node server running on port ${config.port}`);
 
 
 io.on('connection', function(socket) {
