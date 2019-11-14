@@ -42,10 +42,10 @@ const EventHandlers = {
             width: rectangle.right - rectangle.left,
             height: rectangle.bottom - rectangle.top
         };
-        const position = { 
+        const position = {
             x: event.pageX - rectangle.left,
             y: event.pageY - rectangle.top
-         };
+        };
         const obj = new MouseOverEvent(path, position, size);
 
         document.socket.emit('clientEvent', obj);
@@ -63,10 +63,10 @@ const EventHandlers = {
         return "The testing session will now end. Buh-Bye!";
     },
 
-    resize: function(event) {
+    resize: function (event) {
         var dimension = {
-            height: window.innerHeight,
-            width: window.innerWidth
+            height: window.outerHeight,
+            width: window.outerWidth
         };
         const obj = new ResizeEvent(dimension);
         document.socket.emit('clientEvent', obj);
@@ -89,6 +89,8 @@ class ActionSniffer {
             var eventInfo = this.parseEventKey(eventKey);
             var eventName = eventInfo.eventName;
             var capture = eventInfo.capture;
+            var isDebounced = eventInfo.isDebounced;
+
             // create new function so that the variables have new scope.
             function register() {
 
@@ -98,7 +100,16 @@ class ActionSniffer {
                 }
 
                 console.log('added' + eventName);
-                window.addEventListener(eventName, listener, capture);
+
+                // let logger = (args) => console.log(`My args are ${args}`);
+                // // throttle: call the logger at most once every two seconds
+                // let throttledLogger = throttle(logger, 2000);
+                if (isDebounced) {
+                    window.addEventListener(eventName, this.debounce(listener, 30), capture);
+                }
+                else {
+                    window.addEventListener(eventName, listener, capture);
+                }
 
                 this.eventListeners[eventName] = listener;
             }
@@ -123,13 +134,35 @@ class ActionSniffer {
         if (AllowedEvents[key] != undefined) {
             return {
                 eventName: AllowedEvents[key],
-                capture: true
+                capture: true,
+                isDebounced: true, // TODO - make it configurable for each event
             };
         } else {
             return {
                 eventName: eventKey,
                 capture: false
             };
+        }
+    }
+
+    debounce(f, t) {
+        return function (args) {
+            let previousCall = this.lastCall;
+            this.lastCall = Date.now();
+            if (previousCall && ((this.lastCall - previousCall) <= t)) {
+                clearTimeout(this.lastCallTimer);
+            }
+            this.lastCallTimer = setTimeout(() => f(args), t);
+        }
+    }
+
+    throttle(f, t) {
+        return function (args) {
+            let previousCall = this.lastCall;
+            this.lastCall = Date.now();
+            if (previousCall === undefined || (this.lastCall - previousCall) > t) {
+                f(args);
+            }
         }
     }
 }
