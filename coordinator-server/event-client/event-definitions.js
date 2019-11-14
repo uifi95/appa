@@ -45,3 +45,10 @@ class BeforeUnloadEvent extends FormalEvent {
         this.identifier = "buh-bye";
     }
 }
+
+class ResizeEvent extends FormalEvent {
+    constructor(dimension) {
+        super("resize");
+        this.dimension = dimension;
+    }
+}

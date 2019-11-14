@@ -37,7 +37,7 @@ app.get('/action.sniffer.js', function (req, res) {
 app.get('/client.js', function(req, res){
     // TODO this is ugly as fuck.. need a build script/gulp/webpack something to replace the placeholder with the port from the config
     const client = fs.readFileSync(path.join(__dirname, '/event-client/client.js'), 'utf8');
-    res.send(client.replace('{{PORT_NUMBER}}', config.port));
+    res.send(client.replace(`{{PORT_NUMBER}}`, config.port));
 });
 
 // End cliend js loading
@@ -54,6 +54,6 @@ io.on('connection', function(socket) {
             return;
         }
         console.log(event);
-        eventDispatcher.dispatch(event)
+        eventDispatcher.dispatch(event);
     });
 });  

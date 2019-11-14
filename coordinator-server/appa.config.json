@@ -3,5 +3,5 @@
     "masterBrowser": "chrome",
     "slaveBrowsers": ["firefox"],
     "port": 3000,
-    "logLevel": "info"
+    "logLevel": "warn"
 }

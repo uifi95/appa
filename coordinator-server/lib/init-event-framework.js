@@ -30,7 +30,9 @@ const initEventFramework = async ({ appUrl, master, slaves, port, logLevel }) =>
     await masterBrowser.url(appUrl);
 
     new ScriptInjector(masterBrowser, port).injectScriptsPeriodically();
-
+    
+    // Start the recursive function
+    eventDispatcher.ExecQueue();
     return eventDispatcher;
 };
 

@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'beforeunload'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'beforeunload', 'resize'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -61,6 +61,15 @@ const EventHandlers = {
         document.socket.close();
 
         return "The testing session will now end. Buh-Bye!";
+    },
+
+    resize: function(event) {
+        var dimension = {
+            height: window.innerHeight,
+            width: window.innerWidth
+        };
+        const obj = new ResizeEvent(dimension);
+        document.socket.emit('clientEvent', obj);
     }
 };
 
