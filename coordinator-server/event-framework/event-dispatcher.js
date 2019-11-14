@@ -3,6 +3,7 @@ const KeyPress = require("./keypress");
 const Scroll = require("./scroll");
 const MouseOver = require("./mouseover");
 const BeforeUnload = require("./beforeunload");
+const Resize = require("./resize");
 
 class EventDispatcher {
     constructor(browser) {
@@ -12,7 +13,8 @@ class EventDispatcher {
             keypress: KeyPress,
             scroll: Scroll,
             mouseover: MouseOver,
-            beforeunload: BeforeUnload
+            beforeunload: BeforeUnload,
+            resize: Resize
         };
     }
 
