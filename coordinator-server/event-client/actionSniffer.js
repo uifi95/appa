@@ -1,4 +1,4 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'beforeunload', 'resize'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'resize'];
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);

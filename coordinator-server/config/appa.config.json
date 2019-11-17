@@ -1,0 +1,7 @@
+{
+    "url": "https://calvi-r66-dev-25439.portal.dev.calvi-insight.com/login/login/#/login",
+    "masterBrowser": "chrome",
+    "slaveBrowsers": ["firefox"],
+    "port": 3000,
+    "logLevel": "warn"
+}
