@@ -1,5 +1,5 @@
 {
-    "url": "https://calvi-r66-dev-25439.portal.dev.calvi-insight.com/login/login/#/login",
+    "url": "https://wikipedia.com",
     "masterBrowser": "chrome",
     "slaveBrowsers": ["firefox"],
     "port": 3000,
