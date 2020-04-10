@@ -5,19 +5,32 @@ const ScriptInjector = require('./script-injector');
 const generateConfigs = (master, slaves, logLevel) => {
     const slaveConfig = {};
     slaves.forEach((slaveType) => {
-        slaveConfig[`slave${slaveType}`] = { capabilities: {
-                browserName: slaveType
-            } 
-        }
+        slaveConfig[`slave${slaveType}`] = getBrowserConfig(slaveType);
     });
-    const masterConfig = {
-        capabilities: {
-            browserName: master
-        },
-        logLevel: logLevel
-    };
+
+    const masterConfig = getBrowserConfig(master);
     return { slaveConfig, masterConfig };
 };
+
+const getBrowserConfig = (browser) => {
+    switch (browser) {
+        case 'chrome': {
+            configBrowser = require('../config/chrome.conf').config;
+            return configBrowser
+        }
+        case 'firefox': {
+            configBrowser = require('../config/firefox.conf').config;
+            return configBrowser
+        }
+        case 'internet explorer': {
+            configBrowser = require('../config/internetExplorer.conf').config;
+            return configBrowser
+        }
+        default: {
+            throw ("Config not detected for brower: " + browser)
+        }
+    }
+}
 
 const initEventFramework = async ({ appUrl, master, slaves, port, logLevel }) => {
     const { slaveConfig, masterConfig } = generateConfigs(master, slaves, logLevel);
