@@ -1,21 +1,16 @@
 const { multiremote, remote } = require('webdriverio');
 const EventDispatcher = require('../event-framework/event-dispatcher');
 const ScriptInjector = require('./script-injector');
+const browsersConfig = require('../config/browsersConfigs.conf').browsersConfig
 
 const generateConfigs = (master, slaves, logLevel) => {
     const slaveConfig = {};
     slaves.forEach((slaveType) => {
-        slaveConfig[`slave${slaveType}`] = { capabilities: {
-                browserName: slaveType
-            } 
-        }
+        slaveConfig[`slave${slaveType}`] = browsersConfig[slaveType];
     });
-    const masterConfig = {
-        capabilities: {
-            browserName: master
-        },
-        logLevel: logLevel
-    };
+
+    const masterConfig = browsersConfig[master];
+    masterConfig.logLevel = logLevel
     return { slaveConfig, masterConfig };
 };
 

@@ -1,4 +1,6 @@
 const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'resize'];
+const DebounceEvents = ['scroll', 'mouseover', 'resize'];
+
 const EventHandlers = {
     click: function (event) {
         const path = OptimalSelect.select(event.target);
@@ -135,7 +137,7 @@ class ActionSniffer {
             return {
                 eventName: AllowedEvents[key],
                 capture: true,
-                isDebounced: true, // TODO - make it configurable for each event
+                isDebounced: DebounceEvents[key] !== undefined
             };
         } else {
             return {
