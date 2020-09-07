@@ -1,37 +1,47 @@
 {
-  "name": "appa",
-  "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/uifi95/appa.git"
-  },
-  "license": "MIT",
-  "scripts": {
-    "rel-server": "node server.js",
-    "dev-server": "nodemon server.js",
-    "dev-debug": "nodemon --inspect server.js",
-    "selenium-start": "./node_modules/.bin/selenium-standalone start --config=./config/selenium-standalone.config.js",
-    "selenium-install": "./node_modules/.bin/selenium-standalone install --config=./config/selenium-standalone.config.js",
-    "start": "./node_modules/.bin/run-p selenium-start dev-server",
-    "debug": "./node_modules/.bin/run-p selenium-start dev-debug",
-    "start-no-nodemon": "./node_modules/.bin/run-p selenium-start rel-server"
-  },
-  "dependencies": {
-    "@wdio/local-runner": "^5.16.7",
-    "@wdio/mocha-framework": "^5.16.5",
-    "@wdio/selenium-standalone-service": "^5.16.5",
-    "express": "^4.17.1",
-    "npm-run-all": "^4.1.5",
-    "socket.io": "^2.3.0",
-    "wdio-chromedriver-service": "^5.0.2",
-    "webdriver": "^5.16.7",
-    "webdriverio": "^5.16.7"
-  },
-  "engines": {
-    "node": ">=8.15.1",
-    "npm": ">=6.4.1"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.4"
-  }
+    "name": "appa",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/uifi95/appa.git"
+    },
+    "license": "MIT",
+    "scripts": {
+        "rel-server": "node dist/server.js",
+        "dev-server": "nodemon dist/server.js",
+        "dev-debug": "nodemon --inspect dist/server.js",
+        "parcel-build-assets": "copyfiles event-client/*.js dist",
+        "parcel-build-server": "parcel build server.ts --target node --no-minify",
+        "parcel-build": "./node_modules/.bin/run-p parcel-build-assets parcel-build-server",
+        "parcel-server": "./node_modules/.bin/run-s parcel-build dev-server",
+        "parcel-debug": "./node_modules/.bin/run-s parcel-build dev-debug",
+        "parcel-no-watch": "./node_modules/.bin/run-s parcel-build rel-server",
+        "selenium-start": "./node_modules/.bin/selenium-standalone start --config=./config/selenium-standalone.config.js",
+        "selenium-install": "./node_modules/.bin/selenium-standalone install --config=./config/selenium-standalone.config.js",
+        "start": "./node_modules/.bin/run-p selenium-start parcel-server",
+        "debug": "./node_modules/.bin/run-p selenium-start parcel-debug",
+        "start-no-watch": "./node_modules/.bin/run-p selenium-start parcel-no-watch"
+    },
+    "dependencies": {
+        "@types/socket.io": "^2.1.11",
+        "@wdio/local-runner": "^5.16.7",
+        "@wdio/mocha-framework": "^5.16.5",
+        "@wdio/selenium-standalone-service": "^5.16.5",
+        "express": "^4.17.1",
+        "npm-run-all": "^4.1.5",
+        "socket.io": "^2.3.0",
+        "wdio-chromedriver-service": "^5.0.2",
+        "webdriver": "^5.16.7",
+        "webdriverio": "^5.23.0"
+    },
+    "engines": {
+        "node": ">=8.15.1",
+        "npm": ">=6.4.1"
+    },
+    "devDependencies": {
+        "copyfiles": "^2.3.0",
+        "nodemon": "^1.19.4",
+        "parcel-bundler": "^1.12.4",
+        "typescript": "^4.0.2"
+    }
 }

@@ -1,6 +1,6 @@
-const Event = require("./event");
+import { Event } from "./event";
 
-class MouseOver extends Event {
+export class MouseOver extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
@@ -26,5 +26,3 @@ class MouseOver extends Event {
         driverElement.moveTo(x, y);
     }
 }
-
-module.exports = MouseOver;

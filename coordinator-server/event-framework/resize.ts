@@ -1,15 +1,13 @@
-const Event = require("./event");
+import { Event } from "./event";
 
-class Resize extends Event {
+export class Resize extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
 
     async trigger(browser) {
         browser.setWindowSize(
-            this.eventDescriptor.dimension.width, 
+            this.eventDescriptor.dimension.width,
             this.eventDescriptor.dimension.height);
     }
 }
-
-module.exports = Resize;
