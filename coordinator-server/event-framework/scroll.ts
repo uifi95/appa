@@ -1,6 +1,6 @@
-const Event = require("./event");
+import { Event } from "./event";
 
-class Scroll extends Event {
+export class Scroll extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
@@ -11,11 +11,10 @@ class Scroll extends Event {
             function scroll(identifier, position) {
                 const element = document.querySelector(identifier);
                 element.scrollTop = position;
-            }, 
+            },
             identifier,
             position
         );
     }
 }
 
-module.exports = Scroll;

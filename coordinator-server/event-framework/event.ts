@@ -1,9 +1,11 @@
-class Event {
-    constructor(eventDescriptor) {
-        this.eventDescriptor = eventDescriptor;
+import { Browser } from "webdriverio";
+
+export class Event {
+
+    constructor(protected eventDescriptor) {
     }
 
-    async getElement(browser) {
+    async getElement(browser: Browser) {
         return browser.$(this.eventDescriptor.identifier)
     }
 
@@ -11,5 +13,3 @@ class Event {
         throw new Error('Not implemented');
     }
 }
-
-module.exports = Event;

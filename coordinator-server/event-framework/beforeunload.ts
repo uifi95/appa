@@ -1,6 +1,6 @@
-const Event = require("./event");
+import { Event } from "./event";
 
-class BeforeUnload extends Event {
+export class BeforeUnload extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
@@ -13,5 +13,3 @@ class BeforeUnload extends Event {
         process.exit(1);
     }
 }
-
-module.exports = BeforeUnload;

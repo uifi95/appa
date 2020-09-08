@@ -1,6 +1,6 @@
-const Event = require("./event");
+import { Event } from "./event";
 
-class Click extends Event {
+export class Click extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
@@ -10,5 +10,3 @@ class Click extends Event {
         element.click();
     }
 }
-
-module.exports = Click;

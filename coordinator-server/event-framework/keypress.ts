@@ -1,6 +1,6 @@
-const Event = require("./event");
+import { Event } from "./event";
 
-class KeyPress extends Event {
+export class KeyPress extends Event {
     constructor(eventDescriptor) {
         super(eventDescriptor);
     }
@@ -9,5 +9,3 @@ class KeyPress extends Event {
         browser.keys([this.eventDescriptor.key]);
     }
 }
-
-module.exports = KeyPress;
