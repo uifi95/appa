@@ -1,7 +1,0 @@
-{
-    "url": "https://clarity.design",
-    "masterBrowser": "chrome",
-    "slaveBrowsers": ["firefox"],
-    "port": 3000,
-    "logLevel": "warn"
-}
