@@ -51,6 +51,12 @@ export const browsersConfig: { [key: string]: any } =
             },
         },
         logLevel: 'warn',
+    },
+    "edge": {
+        capabilities: {
+            browserName: 'MicrosoftEdge',
+        },
+        logLevel: 'warn',
     }
 };
 
