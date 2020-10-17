@@ -14,8 +14,9 @@ const EventHandlers = {
     },
 
     scroll: function (event) {
-        const path = OptimalSelect.select(event.target);
-        const obj = new ScrollEvent(path, event.srcElement.scrollTop);
+        const obj = event.target.nodeType === 9 // Document
+            ? new ScrollEvent('__document', window.pageYOffset || document.documentElement.scrollTop)
+            : new ScrollEvent(OptimalSelect.select(event.target), event.srcElement.scrollTop);
 
         document.socket.emit('clientEvent', obj);
     },

@@ -10,7 +10,12 @@ export class Scroll extends Event {
         await browser.execute(
             function scroll(identifier, position) {
                 const element = document.querySelector(identifier);
-                element.scrollTop = position;
+                if (element) {
+                    element.scrollTop = position;
+                } else {
+                    // just scroll the entire document to the given position if we can't find the element
+                    window.scrollTo(0, position);
+                }
             },
             identifier,
             position
