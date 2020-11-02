@@ -27,7 +27,6 @@ export const initEventFramework = async ({
         logLevel
     );
     const slaveBrowsers = await multiremote(slaveConfig);
-    const eventDispatcher = new EventDispatcher(slaveBrowsers);
     await slaveBrowsers.url(appUrl);
 
     // start master and inject necessary scripts into it
@@ -36,6 +35,7 @@ export const initEventFramework = async ({
 
     new ScriptInjector(masterBrowser, port).injectScriptsPeriodically();
 
+    const eventDispatcher = new EventDispatcher(slaveBrowsers);
     // Start the recursive function
     eventDispatcher.ExecQueue();
     return eventDispatcher;

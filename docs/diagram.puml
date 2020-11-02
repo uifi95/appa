@@ -1,0 +1,41 @@
+@startuml startup
+skinparam roundcorner 15
+skinparam sequenceArrowThickness 1.5
+
+participant main
+participant appa
+participant replicas
+
+group Startup
+    activate appa
+    appa -> replicas: Spawn replica browsers
+    return
+    appa -> replicas: Navigate to start URL
+    return
+
+    appa -> main: Spawn main browser
+    return
+    appa -> main: Navigate to start URL
+    return
+    appa -> main: Inject client scripts
+
+    appa -> appa: Create event dispatcher
+    deactivate appa
+
+    loop
+        appa -> appa: Process event queue
+    end
+end
+
+group DOM event replication
+    main -> main: Capture DOM event
+
+    main -> appa: Send event metadata
+
+    appa -> replicas: Dispatch event
+
+    replicas -> replicas: Replicate event
+
+end
+
+@enduml
