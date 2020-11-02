@@ -1,12 +1,30 @@
-const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'resize'];
+const AllowedEvents = ['click', 'doubleclick', 'keyup', 'keypress', 'keydown', 'contextmenu', 'scroll', 'mouseover', 'resize'];
 const DebounceEvents = ['scroll', 'mouseover', 'resize'];
 
+// List for client events
+let eventsList = [];
+const sendEventInterval = 200;
+
+// Send client events in order
+// sendEventInterval can be adjusted, can be smaller or bigger based on performance
+(() => {
+    setInterval(()=> {
+        if (eventsList.length > 0) {
+            document.socket.emit('clientEvent', eventsList[0]);
+            eventsList.shift();
+        }
+    }, sendEventInterval)
+    
+})();
+
 const EventHandlers = {
+    
+
     click: function (event) {
         const path = OptimalSelect.select(event.target);
         const obj = new ClickEvent(path, event.x, event.y);
 
-        document.socket.emit('clientEvent', obj);
+        eventsList.push(obj);
     },
 
     doubleclick: function (event) {
@@ -17,7 +35,7 @@ const EventHandlers = {
         const path = OptimalSelect.select(event.target);
         const obj = new ScrollEvent(path, event.srcElement.scrollTop);
 
-        document.socket.emit('clientEvent', obj);
+        eventsList.push(obj);
     },
 
     contextmenu: function (event) {
@@ -25,8 +43,18 @@ const EventHandlers = {
     },
 
     keyup: function (event) {
+        if (event && event.key.length === 1) {
+            return;
+        }
         const obj = new KeyPressEvent(event.key, event.charCode);
-        document.socket.emit('clientEvent', obj);
+        
+        eventsList.push(obj);
+    },
+
+    keypress: function (event) {
+        const obj = new KeyPressEvent(event.key, event.charCode);
+        
+        eventsList.push(obj);
     },
 
     keydown(event) {
@@ -34,7 +62,7 @@ const EventHandlers = {
             return;
         }
         const obj = new KeyPressEvent(event.key, event.charCode);
-        document.socket.emit('clientEvent', obj);
+        eventsList.push(obj);
     },
 
     mouseover(event) {
@@ -50,7 +78,7 @@ const EventHandlers = {
         };
         const obj = new MouseOverEvent(path, position, size);
 
-        document.socket.emit('clientEvent', obj);
+        eventsList.push(obj);
     },
 
     beforeunload: function (event) {
@@ -91,7 +119,6 @@ class ActionSniffer {
             var eventInfo = this.parseEventKey(eventKey);
             var eventName = eventInfo.eventName;
             var capture = eventInfo.capture;
-            var isDebounced = eventInfo.isDebounced;
 
             // create new function so that the variables have new scope.
             function register() {
@@ -106,12 +133,7 @@ class ActionSniffer {
                 // let logger = (args) => console.log(`My args are ${args}`);
                 // // throttle: call the logger at most once every two seconds
                 // let throttledLogger = throttle(logger, 2000);
-                if (isDebounced) {
-                    window.addEventListener(eventName, this.debounce(listener, 30), capture);
-                }
-                else {
-                    window.addEventListener(eventName, listener, capture);
-                }
+                window.addEventListener(eventName, listener, capture);
 
                 this.eventListeners[eventName] = listener;
             }

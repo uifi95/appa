@@ -1,7 +1,7 @@
 {
     "url": "https://wikipedia.com",
     "masterBrowser": "chrome",
-    "slaveBrowsers": ["firefox", "edge"],
+    "slaveBrowsers": ["firefox"],
     "port": 3000,
     "logLevel": "warn"
 }
