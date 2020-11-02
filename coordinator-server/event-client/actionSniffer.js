@@ -46,8 +46,8 @@ const EventHandlers = {
             height: rectangle.bottom - rectangle.top
         };
         const position = {
-            x: event.pageX - rectangle.left,
-            y: event.pageY - rectangle.top
+            x: Math.max(event.pageX - rectangle.left - window.pageXOffset, 0),
+            y: Math.max(event.pageY - rectangle.top - window.pageYOffset, 0)
         };
         const obj = new MouseOverEvent(path, position, size);
 
