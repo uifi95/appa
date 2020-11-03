@@ -11,6 +11,7 @@ export const browsersConfig: { [key: string]: any } =
             'goog:chromeOptions': {
                 w3c: false,
                 'args': ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage", '--lang=en-US;q=0.8,en;q=0.7'],
+                excludeSwitches: [ "enable-automation" ]
             },
         },
         logLevel: 'warn',
@@ -55,6 +56,9 @@ export const browsersConfig: { [key: string]: any } =
     "edge": {
         capabilities: {
             browserName: 'MicrosoftEdge',
+            'ms:edgeOptions': {
+                excludeSwitches: [ "enable-automation" ]
+            },
         },
         logLevel: 'warn',
     }

@@ -1,5 +1,5 @@
 {
-    "url": "https://wikipedia.com",
+    "url": "https://clarity.design/",
     "masterBrowser": "chrome",
     "slaveBrowsers": ["firefox", "edge"],
     "port": 3000,

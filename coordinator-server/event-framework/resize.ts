@@ -1,3 +1,4 @@
+import { Browser } from "webdriverio";
 import { Event } from "./event";
 
 export class Resize extends Event {
@@ -5,7 +6,7 @@ export class Resize extends Event {
         super(eventDescriptor);
     }
 
-    async trigger(browser) {
+    async trigger(browser: Browser) {
         browser.setWindowSize(
             this.eventDescriptor.dimension.width,
             this.eventDescriptor.dimension.height);

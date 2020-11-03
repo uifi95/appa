@@ -29,8 +29,9 @@ const EventHandlers = {
     },
 
     scroll: function (event) {
-        const path = OptimalSelect.select(event.target);
-        const obj = new ScrollEvent(path, event.srcElement.scrollTop);
+        const obj = event.target === document
+            ? new ScrollEvent('__document', window.pageYOffset || document.documentElement.scrollTop)
+            : new ScrollEvent(OptimalSelect.select(event.target), event.srcElement.scrollTop);
 
         eventsList.push(obj);
     },
@@ -70,8 +71,8 @@ const EventHandlers = {
             height: rectangle.bottom - rectangle.top
         };
         const position = {
-            x: event.pageX - rectangle.left,
-            y: event.pageY - rectangle.top
+            x: Math.max(event.pageX - window.pageXOffset - rectangle.left, 0),
+            y: Math.max(event.pageY - window.pageYOffset - rectangle.top, 0)
         };
         const obj = new MouseOverEvent(path, position, size);
 

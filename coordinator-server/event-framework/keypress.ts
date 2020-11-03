@@ -1,3 +1,4 @@
+import { Browser } from "webdriverio";
 import { Event } from "./event";
 
 export class KeyPress extends Event {
@@ -5,7 +6,7 @@ export class KeyPress extends Event {
         super(eventDescriptor);
     }
 
-    async trigger(browser) {
+    async trigger(browser: Browser) {
         browser.keys([this.eventDescriptor.key]);
     }
 }
