@@ -14,7 +14,7 @@ const EventHandlers = {
     },
 
     scroll: function (event) {
-        const obj = event.target.nodeType === 9 // Document
+        const obj = event.target === document
             ? new ScrollEvent('__document', window.pageYOffset || document.documentElement.scrollTop)
             : new ScrollEvent(OptimalSelect.select(event.target), event.srcElement.scrollTop);
 
@@ -46,8 +46,8 @@ const EventHandlers = {
             height: rectangle.bottom - rectangle.top
         };
         const position = {
-            x: Math.max(event.pageX - rectangle.left - window.pageXOffset, 0),
-            y: Math.max(event.pageY - rectangle.top - window.pageYOffset, 0)
+            x: Math.max(event.pageX - window.pageXOffset - rectangle.left, 0),
+            y: Math.max(event.pageY - window.pageYOffset - rectangle.top, 0)
         };
         const obj = new MouseOverEvent(path, position, size);
 

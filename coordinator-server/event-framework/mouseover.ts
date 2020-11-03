@@ -6,11 +6,11 @@ export class MouseOver extends Event {
         super(eventDescriptor);
     }
 
-    async trigger(browser: Browser) {
+    async trigger(browser) {
         const driverElement = await super.getElement(browser);
         const { size: masterSize, position, identifier } = this.eventDescriptor;
 
-        const slaveSize = (await browser.execute(
+        const [slaveSize] = (await browser.execute(
             function mouseOver(identifier) {
                 const element = document.querySelector(identifier);
                 const rectangle = element.getBoundingClientRect();
@@ -20,7 +20,7 @@ export class MouseOver extends Event {
                 };
             },
             identifier
-        ))[0];
+        ));
 
         const x = position.x * masterSize.width / slaveSize.width;
         const y = position.y * masterSize.height / slaveSize.height;
