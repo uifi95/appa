@@ -3,19 +3,16 @@ const DebounceEvents = ['scroll', 'mouseover', 'resize'];
 
 // List for client events
 let eventsList = [];
-const sendEventInterval = 200;
+const sendEventInterval = 100;
 
 // Send client events in order
 // sendEventInterval can be adjusted, can be smaller or bigger based on performance
-(() => {
-    setInterval(()=> {
-        if (eventsList.length > 0) {
-            document.socket.emit('clientEvent', eventsList[0]);
-            eventsList.shift();
-        }
-    }, sendEventInterval)
-    
-})();
+setInterval(()=> {
+    if (eventsList.length > 0) {
+        document.socket.emit('clientEvent', eventsList[0]);
+        eventsList.shift();
+    }
+}, sendEventInterval);
 
 const EventHandlers = {
     
@@ -119,7 +116,7 @@ class ActionSniffer {
             var eventInfo = this.parseEventKey(eventKey);
             var eventName = eventInfo.eventName;
             var capture = eventInfo.capture;
-
+            var isDebounced = eventInfo.isDebounced;
             // create new function so that the variables have new scope.
             function register() {
 
@@ -133,7 +130,11 @@ class ActionSniffer {
                 // let logger = (args) => console.log(`My args are ${args}`);
                 // // throttle: call the logger at most once every two seconds
                 // let throttledLogger = throttle(logger, 2000);
-                window.addEventListener(eventName, listener, capture);
+                if (isDebounced) {
+                    window.addEventListener(eventName, this.debounce(listener, 30), capture);
+                } else {
+                    window.addEventListener(eventName, listener, capture);
+                }
 
                 this.eventListeners[eventName] = listener;
             }
