@@ -44,7 +44,11 @@ app.get('/client.js', function (req, res) {
     res.send(client.replace(`{{PORT_NUMBER}}`, config.port));
 });
 
-// End cliend js loading
+app.get('/cssSelectorGenerator.js', function (req, res) {
+    res.sendFile(path.join(__dirname, '/event-client/cssSelectorGenerator.js'));
+});
+
+// End client js loading
 
 // Start the server on the configured port
 http.listen(config.port, 'localhost');
@@ -60,4 +64,4 @@ io.on('connection', function (socket) {
         console.log(event);
         eventDispatcher.dispatch(event);
     });
-});  
+});
