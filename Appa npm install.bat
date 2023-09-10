@@ -1,2 +1,2 @@
 cd ./coordinator-server
-npm run start
+npm i
